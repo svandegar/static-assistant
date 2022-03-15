@@ -10,7 +10,8 @@ client.headers["Host"] = "https://testhost.com"
 def test_read_main():
     response = client.get("/")
     assert response.status_code == 200
-    assert response.json() == {"message": "Hello World"}
+    assert response.json() == {"message": "Hi! I'm a static website assistant! "
+                                          "Wanna see everything I can do? Check github.com/svandegar/static-assistant"}
 
 
 def test_reject_POST_root():
@@ -39,4 +40,16 @@ def test_POST_contact_form_spam_filter_rejects_email(mocker: MockerFixture):
     }
     response = client.post("/contact", json=data)
     assert response.status_code == 400
-    assert response.json() == {"detail":"Looks like spam."}
+    assert response.json() == {"detail": "Looks like spam."}
+
+
+def test_POST_contact_form_spam_filter_rejects_body(mocker: MockerFixture):
+    mocker.patch('services.email.send_email')
+    data = {
+        "reply_to": "jean@petit.be",
+        "subject": "Subject line",
+        "body": "Blablabla. Please check this obscure website! blablabla again.",
+    }
+    response = client.post("/contact", json=data)
+    assert response.status_code == 400
+    assert response.json() == {"detail": "Looks like spam."}

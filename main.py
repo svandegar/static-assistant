@@ -15,7 +15,9 @@ app.add_middleware(
 
 @app.get("/")
 async def root():
-    return {"message": "Hello World"}
+    return {
+        "message": "Hi! I'm a static website assistant! "
+                   "Wanna see everything I can do? Check github.com/svandegar/static-assistant"}
 
 
 @app.post("/contact")
@@ -47,6 +49,9 @@ def build_body(body: str, subject: str) -> str:
 
 def detect_spam(message: models.Message) -> bool:
     if message.reply_to in config.settings.blocked_emails:
+        return True
+
+    if any([phrase.lower() in message.body.lower() for phrase in config.settings.blocked_phrases]):
         return True
 
     return False

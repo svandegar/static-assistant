@@ -13,6 +13,7 @@ class Settings(BaseSettings):
     subject_prefix: str = "Nouveau message :"
     allowed_host_sources: List[str] = allowed_sources
     blocked_emails: List[str] = ["spammer@email.be"]
+    blocked_phrases: List[str] = ["please check this obscure website"]
 
     class Config:
         env_file = ".env"
