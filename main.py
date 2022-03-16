@@ -2,12 +2,12 @@ from fastapi import FastAPI
 from fastapi.middleware.trustedhost import TrustedHostMiddleware
 from routers import contact
 
-import config
+from config import settings
 
 app = FastAPI()
 
 app.add_middleware(
-    TrustedHostMiddleware, allowed_hosts=config.settings.allowed_host_sources
+    TrustedHostMiddleware, allowed_hosts=settings.allowed_host_sources
 )
 
 app.include_router(contact.router)
