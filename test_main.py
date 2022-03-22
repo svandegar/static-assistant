@@ -4,7 +4,6 @@ from pytest_mock import MockerFixture
 from main import app
 
 client = TestClient(app)
-client.headers["Host"] = "https://testhost.com"
 
 
 def test_read_main():
