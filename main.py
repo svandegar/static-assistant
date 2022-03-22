@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.trustedhost import TrustedHostMiddleware
 from routers import contact
 
-from config import settings
+from config.config import settings
 
 app = FastAPI()
 

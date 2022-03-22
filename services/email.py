@@ -1,6 +1,6 @@
 from postmarker.core import PostmarkClient
 
-from config import settings
+from config.config import settings
 
 POSTMARK_TOKEN = settings.POSTMARK_TOKEN
 postmark_client = PostmarkClient(server_token=POSTMARK_TOKEN)
