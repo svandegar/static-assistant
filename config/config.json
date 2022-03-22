@@ -1,0 +1,15 @@
+{
+  "allowed_sources": ["testserver", "localhost"],
+  "email": {
+    "allow_default_to": true,
+    "from": "jean@petit.be",
+    "to": {
+      "default": "jean@petit.be",
+      "myapp": "me@myapp.com"
+    }
+  },
+  "spam": {
+    "emails": ["spammer@email.be"],
+    "content": ["please check this obscure website"]
+  }
+}
