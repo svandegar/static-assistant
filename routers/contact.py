@@ -1,4 +1,5 @@
-from fastapi import APIRouter, HTTPException, Request
+from fastapi import APIRouter, HTTPException, Request, Form
+from starlette.responses import RedirectResponse
 
 from config.config import settings
 from services import email
@@ -12,18 +13,30 @@ router = APIRouter(
 
 @router.post("")
 async def post_contact(message: models.Message, request: Request):
-    message_is_spam = detect_spam(message=message)
-    if not message_is_spam:
-        subject = build_subject(subject=message.subject)
-        html_body = build_body(body=message.body, subject=message.subject)
-        recipient_email = identify_recipient_email(host_name=request.client.host)
-        email.send_email(
-            reply_to_email=message.reply_to,
-            recipient_email=recipient_email,
-            subject=subject,
-            html_body=html_body
-        )
+    message_is_handled = handle_message(parsed_message=message, request=request)
+    if message_is_handled:
         return {"message": f"Message sent"}
+    else:
+        raise HTTPException(status_code=400, detail="Looks like spam.")
+
+
+@router.post("/form")
+async def post_contact(request: Request,
+                       message: str = Form(...),
+                       name: str = Form(...),
+                       reply_to: str = Form(...),
+                       subject: str = Form(...),
+                       organization: str = Form(...)):
+    parsed_message = models.Message(
+        reply_to=reply_to,
+        body=message,
+        organization=organization,
+        full_name=name,
+        subject=subject
+    )
+    message_is_handled = handle_message(parsed_message=parsed_message, request=request)
+    if message_is_handled:
+        return RedirectResponse(url=settings.success_redirect_url, status_code=303)
     else:
         raise HTTPException(status_code=400, detail="Looks like spam.")
 
@@ -32,9 +45,11 @@ def build_subject(subject: str) -> str:
     return f"{settings.subject_prefix} {subject}"
 
 
-def build_body(body: str, subject: str) -> str:
+def build_body(body: str, subject: str, name: str, organization: str) -> str:
     return f"""
-    <h1>{subject}</h1>
+    <div><b>Subject</b> : {subject}</div>
+    <div><b>Name</b> : {name}</div>
+    <div><b>Organization</b> : {organization}</div>
     <p>{body}</p>
     """
 
@@ -63,3 +78,25 @@ def identify_recipient_email(host_name: str) -> str:
             return settings.recipients_emails.get("default")
         else:
             raise HTTPException(status_code=400, detail="Unknown host")
+
+
+def handle_message(parsed_message: models.Message, request: Request) -> bool:
+    message_is_spam = detect_spam(message=parsed_message)
+    if message_is_spam:
+        return False
+    else:
+        subject = build_subject(subject=parsed_message.subject)
+        html_body = build_body(
+            body=parsed_message.body,
+            subject=parsed_message.subject,
+            organization=parsed_message.organization,
+            name=parsed_message.full_name
+        )
+        recipient_email = identify_recipient_email(host_name=request.client.host)
+        email.send_email(
+            reply_to_email=parsed_message.reply_to,
+            recipient_email=recipient_email,
+            subject=subject,
+            html_body=html_body
+        )
+        return True

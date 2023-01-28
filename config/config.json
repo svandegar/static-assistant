@@ -1,15 +1,16 @@
 {
-  "allowed_sources": ["testserver", "localhost"],
+  "allowed_sources": ["testserver", "localhost", "https://aynils.ca"],
   "email": {
     "allow_default_to": true,
-    "from": "jean@petit.be",
+    "from": "contact@aynils.ca",
     "to": {
-      "default": "jean@petit.be",
+      "default": "contact@aynils.ca",
       "myapp": "me@myapp.com"
     }
   },
   "spam": {
     "emails": ["spammer@email.be"],
     "content": ["please check this obscure website"]
-  }
+  },
+  "success_redirect_url": "https://aynils.ca"
 }

@@ -1,5 +1,4 @@
 import json
-import os
 from typing import List
 
 from pydantic import BaseSettings
@@ -17,6 +16,7 @@ class Settings(BaseSettings):
     default_from_email: str = config_data.get("email", {}).get("from")
     allow_default_recipient_email: str = config_data.get("email", {}).get("allow_default_to")
     recipients_emails: dict = config_data.get("email", {}).get("to")
+    success_redirect_url: str = config_data.get("success_redirect_url", {})
 
     class Config:
         env_file = "config/.env"
