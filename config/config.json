@@ -1,5 +1,5 @@
 {
-  "allowed_sources": ["testserver", "localhost", "https://aynils.ca"],
+  "allowed_sources": ["testserver", "localhost", "aynils.ca"],
   "email": {
     "allow_default_to": true,
     "from": "contact@aynils.ca",
