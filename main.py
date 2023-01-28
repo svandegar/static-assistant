@@ -7,7 +7,7 @@ from config.config import settings
 app = FastAPI()
 
 app.add_middleware(
-    TrustedHostMiddleware, allowed_hosts="static-assistant-hmnx6.ondigitalocean.app"
+    TrustedHostMiddleware, allowed_hosts=["static-assistant-hmnx6.ondigitalocean.app"]
 )
 
 app.include_router(contact.router)
