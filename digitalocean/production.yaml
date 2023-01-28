@@ -1,0 +1,23 @@
+alerts:
+  - rule: DEPLOYMENT_FAILED
+  - rule: DOMAIN_FAILED
+name: static-assistant
+region: tor
+services:
+  - environment_slug: python
+    envs:
+      - key: POSTMARK_TOKEN
+        scope: RUN_AND_BUILD_TIME
+        type: SECRET
+        value: EV[1:M72M/ch18hauCvWny2RMwOaVYx91iftG:38FcUg5AAodOWXT0AXKP1WohBYkACGpkr+TLra3TiBesGbASIPUdu+3qlhQOMUFLvXL70w==]
+    github:
+      branch: main
+      deploy_on_push: true
+      repo: svandegar/static-assistant
+    http_port: 8080
+    instance_count: 1
+    instance_size_slug: basic-xxs
+    name: fastapp
+    routes:
+      - path: /
+    run_command: gunicorn --worker-tmp-dir /dev/shm --config gunicorn.config.py main:app
