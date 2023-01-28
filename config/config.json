@@ -1,5 +1,5 @@
 {
-  "allowed_sources": ["testserver", "localhost", "aynils.ca","https://static-assistant-hmnx6.ondigitalocean.app/"],
+  "allowed_sources": ["testserver", "localhost", "aynils.ca","static-assistant-hmnx6.ondigitalocean.app/"],
   "email": {
     "allow_default_to": true,
     "from": "contact@aynils.ca",
