@@ -1,5 +1,5 @@
 {
-  "allowed_sources": ["testserver", "localhost", "aynils.ca","static-assistant-hmnx6.ondigitalocean.app"],
+  "allowed_sources": ["testserver", "localhost", "static-assistant-hmnx6.ondigitalocean.app"],
   "email": {
     "allow_default_to": true,
     "from": "contact@aynils.ca",
@@ -9,8 +9,8 @@
     }
   },
   "spam": {
-    "emails": ["spammer@email.be"],
-    "content": ["please check this obscure website"]
+    "emails": ["spammer@email.be","stevenkrivers@gmail.com"],
+    "content": ["please check this obscure website","Gagner de l'argent sur Internet "]
   },
   "success_redirect_url": "https://aynils.ca"
 }
