@@ -10,7 +10,7 @@ def test_read_main():
     response = client.get("/")
     assert response.status_code == 200
     assert response.json() == {"message": "Hi! I'm a static website assistant! "
-                                          "Wanna see everything I can do? Check github.com/svandegar/static-assistant"}
+                                          "You want to see everything I can do? Check github.com/svandegar/static-assistant"}
 
 
 def test_reject_POST_root():

@@ -9,8 +9,8 @@
     }
   },
   "spam": {
-    "emails": ["spammer@email.be","stevenkrivers@gmail.com"],
-    "content": ["please check this obscure website","Gagner de l'argent sur Internet "]
+    "emails": ["spammer@email.be","stevenkrivers@gmail.com","eric.jones.z.mail@gmail.com"],
+    "content": ["please check this obscure website","Gagner de l'argent sur Internet","I just found your site"]
   },
   "success_redirect_url": "https://aynils.ca"
 }

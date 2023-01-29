@@ -17,5 +17,5 @@ app.include_router(contact.router)
 async def root():
     return {
         "message": "Hi! I'm a static website assistant! "
-                   "You want see everything I can do? Check github.com/svandegar/static-assistant"}
+                   "You want to see everything I can do? Check github.com/svandegar/static-assistant"}
 
