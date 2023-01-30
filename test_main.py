@@ -22,7 +22,7 @@ def test_POST_contact_form(mocker: MockerFixture):
     mocker.patch('services.email.send_email')
     data = {
         "reply_to": "jean@petit.be",
-        "subject": "Subject line",
+        "subject": "Contact depuis le site Aynils.ca",
         "body": "Here comes the body",
     }
     response = client.post("/contact", json=data)
@@ -34,7 +34,7 @@ def test_POST_contact_form_spam_filter_rejects_email(mocker: MockerFixture):
     mocker.patch('services.email.send_email')
     data = {
         "reply_to": "spammer@email.be",
-        "subject": "Subject line",
+        "subject": "Subject line allowed",
         "body": "Here comes the body",
     }
     response = client.post("/contact", json=data)
@@ -46,8 +46,32 @@ def test_POST_contact_form_spam_filter_rejects_body(mocker: MockerFixture):
     mocker.patch('services.email.send_email')
     data = {
         "reply_to": "jean@petit.be",
-        "subject": "Subject line",
+        "subject": "Subject line allowed",
         "body": "Blablabla. Please check this obscure website! blablabla again.",
+    }
+    response = client.post("/contact", json=data)
+    assert response.status_code == 400
+    assert response.json() == {"detail": "Looks like spam."}
+
+
+def test_POST_contact_form_spam_filter_rejects_subject(mocker: MockerFixture):
+    mocker.patch('services.email.send_email')
+    data = {
+        "reply_to": "jean@petit.be",
+        "subject": "Subject line not allowed",
+        "body": "Here comes the body",
+    }
+    response = client.post("/contact", json=data)
+    assert response.status_code == 400
+    assert response.json() == {"detail": "Looks like spam."}
+
+def test_POST_contact_form_spam_filter_rejects_name(mocker: MockerFixture):
+    mocker.patch('services.email.send_email')
+    data = {
+        "name": "spammer",
+        "reply_to": "jean@petit.be",
+        "subject": "Subject line allowed",
+        "body": "Here comes the body",
     }
     response = client.post("/contact", json=data)
     assert response.status_code == 400

@@ -58,6 +58,9 @@ def detect_spam(message: models.Message) -> bool:
     if message.reply_to in settings.blocked_emails:
         return True
 
+    if message.subject.lower() not in settings.allowed_subjects:
+            return True
+
     if any([phrase.lower() in message.body.lower() for phrase in settings.blocked_content]):
         return True
 

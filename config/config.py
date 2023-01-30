@@ -13,6 +13,7 @@ class Settings(BaseSettings):
     allowed_host_sources: List[str] = config_data.get("allowed_sources",["*"])
     blocked_emails: List[str] = config_data.get("spam", {}).get("emails", [])
     blocked_content: List[str] = config_data.get("spam", {}).get("content", [])
+    allowed_subjects: List[str] = config_data.get("spam", {}).get("allowed_subjects", [])
     default_from_email: str = config_data.get("email", {}).get("from")
     allow_default_recipient_email: str = config_data.get("email", {}).get("allow_default_to")
     recipients_emails: dict = config_data.get("email", {}).get("to")
