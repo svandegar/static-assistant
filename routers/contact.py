@@ -31,7 +31,7 @@ async def post_contact(request: Request,
         reply_to=reply_to,
         body=message,
         organization=organization,
-        full_name=name,
+        name=name,
         subject=subject
     )
     message_is_handled = handle_message(parsed_message=parsed_message, request=request)
@@ -58,8 +58,11 @@ def detect_spam(message: models.Message) -> bool:
     if message.reply_to in settings.blocked_emails:
         return True
 
-    if message.subject.lower() not in settings.allowed_subjects:
-            return True
+    if message.name in settings.blocked_names:
+        return True
+
+    if not any([phrase.lower() in message.subject.lower() for phrase in settings.allowed_subjects]):
+        return True
 
     if any([phrase.lower() in message.body.lower() for phrase in settings.blocked_content]):
         return True
@@ -93,7 +96,7 @@ def handle_message(parsed_message: models.Message, request: Request) -> bool:
             body=parsed_message.body,
             subject=parsed_message.subject,
             organization=parsed_message.organization,
-            name=parsed_message.full_name
+            name=parsed_message.name
         )
         recipient_email = identify_recipient_email(host_name=request.client.host)
         email.send_email(

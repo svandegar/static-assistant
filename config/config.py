@@ -12,6 +12,7 @@ class Settings(BaseSettings):
     subject_prefix: str = "Nouveau message :"
     allowed_host_sources: List[str] = config_data.get("allowed_sources",["*"])
     blocked_emails: List[str] = config_data.get("spam", {}).get("emails", [])
+    blocked_names: List[str] = config_data.get("spam", {}).get("names", [])
     blocked_content: List[str] = config_data.get("spam", {}).get("content", [])
     allowed_subjects: List[str] = config_data.get("spam", {}).get("allowed_subjects", [])
     default_from_email: str = config_data.get("email", {}).get("from")

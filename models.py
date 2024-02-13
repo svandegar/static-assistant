@@ -6,4 +6,4 @@ class Message(BaseModel):
     subject: str
     body: str
     organization: str | None = None
-    full_name: str | None = None
+    name: str | None = None
