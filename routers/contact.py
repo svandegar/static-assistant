@@ -39,7 +39,7 @@ async def post_contact(request: Request,
     )
     message_is_handled = handle_message(parsed_message=parsed_message, request=request)
     if message_is_handled:
-        return RedirectResponse(url=settings.success_redirect_url, status_code=303)
+        return RedirectResponse(url=(settings.success_redirect_url.get(request.client.host) or settings.success_redirect_url.get("default")), status_code=303)
     else:
         raise HTTPException(status_code=400, detail="Looks like spam.")
 

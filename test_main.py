@@ -41,6 +41,7 @@ def test_POST_contact_form(mocker: MockerFixture):
     response = client.post("/contact/form", data=data )
     assert response.status_code == 303
     assert response.ok
+    assert response.headers.get("location") == "https://framasoft.fr"
 
 def test_POST_contact_form_no_message(mocker: MockerFixture):
     mocker.patch('services.email.send_email')

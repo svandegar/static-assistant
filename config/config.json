@@ -14,5 +14,10 @@
     "content": ["please check this obscure website","Gagner de l'argent sur Internet","I just found your site"],
     "allowed_subjects": ["contact depuis le site aynils.ca","Subject line allowed","Document request from feuilledetemps.ca"]
   },
-  "success_redirect_url": "https://aynils.ca"
+  "success_redirect_url": {
+    "default" : "https://aynils.ca",
+    "aynils" : "https://aynils.ca",
+    "testclient" : "https://framasoft.fr",
+    "feuilledetemps.ca" :  "https://feuilledetemps.ca"
+  }
 }
