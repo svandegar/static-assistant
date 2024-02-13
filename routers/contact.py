@@ -1,3 +1,5 @@
+from typing import Annotated
+
 from fastapi import APIRouter, HTTPException, Request, Form
 from starlette.responses import RedirectResponse
 
@@ -22,7 +24,7 @@ async def post_contact(message: models.Message, request: Request):
 
 @router.post("/form")
 async def post_contact(request: Request,
-                       message: str = Form(...),
+                       message: Annotated[str, Form(...)] = "",
                        name: str = Form(...),
                        reply_to: str = Form(...),
                        subject: str = Form(...),
