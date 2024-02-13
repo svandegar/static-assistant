@@ -5,7 +5,7 @@
     "from": "contact@aynils.ca",
     "to": {
       "default": "contact@aynils.ca",
-      "feuilledetemps.ca": "info@feuilledetemps.ca"
+      "159.2.54.145": "info@feuilledetemps.ca"
     }
   },
   "spam": {
@@ -18,6 +18,6 @@
     "default" : "https://aynils.ca",
     "aynils" : "https://aynils.ca",
     "testclient" : "https://framasoft.fr",
-    "feuilledetemps.ca" :  "https://feuilledetemps.ca"
+    "159.2.54.145" :  "https://feuilledetemps.ca"
   }
 }
