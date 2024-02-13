@@ -18,7 +18,7 @@ def test_reject_POST_root():
     assert response.status_code == 405
 
 
-def test_POST_contact_form(mocker: MockerFixture):
+def test_POST_contact(mocker: MockerFixture):
     mocker.patch('services.email.send_email')
     data = {
         "reply_to": "jean@petit.be",
@@ -29,6 +29,30 @@ def test_POST_contact_form(mocker: MockerFixture):
     assert response.status_code == 200
     assert response.json() == {"message": f"Message sent"}
 
+def test_POST_contact_form(mocker: MockerFixture):
+    mocker.patch('services.email.send_email')
+    data = {
+        "reply_to": "jean@petit.be",
+        "subject": "Contact depuis le site Aynils.ca",
+        "organization": "L'organisme des gentils",
+        "name": "Jean Petit",
+        "message": "Jean Petit",
+    }
+    response = client.post("/contact/form", data=data )
+    assert response.status_code == 303
+    assert response.ok
+
+def test_POST_contact_form_no_message(mocker: MockerFixture):
+    mocker.patch('services.email.send_email')
+    data = {
+        "reply_to": "jean@petit.be",
+        "subject": "Contact depuis le site Aynils.ca",
+        "organization": "L'organisme des gentils",
+        "name": "Jean Petit",
+    }
+    response = client.post("/contact/form", data=data )
+    assert response.status_code == 303
+    assert response.ok
 
 def test_POST_contact_form_spam_filter_rejects_email(mocker: MockerFixture):
     mocker.patch('services.email.send_email')

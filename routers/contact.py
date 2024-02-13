@@ -24,7 +24,8 @@ async def post_contact(message: models.Message, request: Request):
 
 @router.post("/form")
 async def post_contact(request: Request,
-                       message: Annotated[str, Form(...)] = "",
+                       # message: Annotated[str, Form(None)],
+                       message: str = Form(""),
                        name: str = Form(...),
                        reply_to: str = Form(...),
                        subject: str = Form(...),
