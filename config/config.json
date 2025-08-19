@@ -15,8 +15,9 @@
     "allowed_subjects": ["contact depuis le site aynils.ca","Subject line allowed","Document request from feuilledetemps.ca","Demo request from feuilledetemps.ca","Contact request from feuilledetemps.ca"]
   },
   "success_redirect_url": {
-    "default" : "https://aynils.ca",
+    "default" : "https://feuilledetemps.ca",
     "aynils" : "https://aynils.ca",
+    "feuilledetemps" : "https://aynils.ca",
     "testclient" : "https://framasoft.fr",
     "159.2.54.145" :  "https://feuilledetemps.ca"
   }
