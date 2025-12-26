@@ -7,3 +7,6 @@ class Message(BaseModel):
     body: str
     organization: str | None = None
     name: str | None = None
+    size: str | None = None
+    availability: str | None = None
+
