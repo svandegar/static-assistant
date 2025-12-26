@@ -49,11 +49,13 @@ def build_subject(subject: str) -> str:
     return f"{settings.subject_prefix} {subject}"
 
 
-def build_body(body: str, subject: str, name: str, organization: str) -> str:
+def build_body(body: str, subject: str, name: str, organization: str, size: str = None, availability: str = None) -> str:
     return f"""
     <div><b>Subject</b> : {subject}</div>
     <div><b>Name</b> : {name}</div>
     <div><b>Organization</b> : {organization}</div>
+    <div><b>Organization size</b> : {size}</div>
+    <div><b>Availability</b> : {availability}</div>
     <p>{body}</p>
     """
 
@@ -100,7 +102,9 @@ def handle_message(parsed_message: models.Message, request: Request) -> bool:
             body=parsed_message.body,
             subject=parsed_message.subject,
             organization=parsed_message.organization,
-            name=parsed_message.name
+            name=parsed_message.name,
+            size=parsed_message.size,
+            availability=parsed_message.availability,
         )
         recipient_email = identify_recipient_email(host_name=request.client.host)
         email.send_email(
