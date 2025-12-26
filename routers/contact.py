@@ -29,7 +29,10 @@ async def post_contact(request: Request,
                        name: str = Form(...),
                        reply_to: str = Form(...),
                        subject: str = Form(...),
-                       organization: str = Form(...)):
+                       size: str = Form(...),
+                       availability: str = Form(...),
+                      
+                      ):
     print(f"New request received from {request.client.host}")
     parsed_message = models.Message(
         reply_to=reply_to,
