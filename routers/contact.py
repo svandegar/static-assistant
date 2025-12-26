@@ -29,6 +29,7 @@ async def post_contact(request: Request,
                        name: str = Form(...),
                        reply_to: str = Form(...),
                        subject: str = Form(...),
+                       organization: str = Form(...),
                        size: str = Form(...),
                        availability: str = Form(...),
                       
