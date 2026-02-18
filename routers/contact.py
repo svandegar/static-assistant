@@ -30,8 +30,7 @@ async def post_contact(request: Request,
                        reply_to: str = Form(...),
                        subject: str = Form(...),
                        organization: str = Form(...),
-                       size: str = Form(...),
-                       availability: str = Form(...),
+
                       ):
     print(f"New request received from {request.client.host}")
     parsed_message = models.Message(
@@ -40,8 +39,6 @@ async def post_contact(request: Request,
         organization=organization,
         name=name,
         subject=subject,
-        size=size,
-        availability=availability,
     )
     message_is_handled = handle_message(parsed_message=parsed_message, request=request)
     if message_is_handled:
